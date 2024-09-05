@@ -1,5 +1,105 @@
-const express = Noderequire("express");
+const fs = require("fs");
+const express = require("express");
+const app = express();
+const port = 3000;
 
+app.listen(port, () => {
+    console.log(`Server listening on port ${port}.`);
+});
+
+// app.get("/", (req, res) => {
+//     res.send("Hello Express!");
+// });
+
+app.get("/express", (req, res) => {
+    res.send("Creating routes with Express is simple!");
+});
+
+app.get("/user", (req, res) => {
+    res.send("Recieved a GET request for user!");
+});
+
+app.post("/user", (req, res) => {
+    res.send("Received a POST request for user!");
+});
+
+app.get("/ab?cd", (req, res) => {
+    res.send("ab?cd");
+});
+
+app.get("/ab+cd", (req, res) => {
+    res.send("ab(how many b's?)cd");
+});
+
+
+app.get("/ab*cd", (req, res) => {
+    res.send("ab(something here)cd");
+});
+
+app.get("/ab(cd)?e", (req, res) => {
+    res.send("ab(maybe cd)e");
+});
+
+app.get(/.*fly$/, (req, res) => {
+    res.send("Any route that ends in fly?");
+});
+
+app.get(/a/, (req, res) => {
+    res.send("any route with an 'a'?");
+});
+
+app.get("/users/:userID/profile/:profileID", (req, res) => {
+    res.send(`userID: ${req.params.userID} and profileID: ${req.params.profileID} are route params. Cool Beans!`);
+});
+
+//Route chaining
+app.route('/leaner')
+.get((req, res) => {
+    res.send("You are now looking a the leaners.");
+})
+.post((req, res) => {
+    res.send("You have now added a user!");
+}).put((req, res) => {
+    res.send("You have updated the learner!");
+});
+
+//Middleware
+// const logReq = function (req, res, next) {
+//     console.log("Request Recieved!");
+//     next();
+// };
+
+// app.get("/", (req, res) => {
+//     res.send("Keeping it Simple.")
+// });
+
+// app.use(logReq);
+
+//Error-Handling Middleware
+const cookieParser = require("cookie-parser");
+
+async function validateCookies(req, res, next) {
+  await cookieValidator(req.cookies);
+  next();
+}
+
+async function cookieValidator(cookies) {
+  console.log(cookies);
+  return true;
+}
+
+app.use(cookieParser());
+
+app.use(validateCookies);
+
+// error handler
+app.use((err, req, res, next) => {
+  res.status(400).send(err.message);
+});
+
+app.get("/", (req, res) => {
+  res.send("Keeping it simple.");
+});
 
 // const http = Noderequire("http");
 
