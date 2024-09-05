@@ -1,21 +1,32 @@
-const http = require('http');
-// const hostname = '127.0.0.1';
-// const port = 3000;
+const http = require("http");
 
-
-const server = http.createServer((req, res) => {
+http.createServer((req, res) => {
     res.statusCode = 200;
-    res.setHeader('Content-Type', 'text/html');
-    res.write(`<body style="background-color: black"></body>`);
-    res.write(`<h1 style="color: green">Hello World!</h1>`);
-    res.write(`<p style="color: white">Looks like I can write whatever I want to the page, huh?!</p>`);
-    res.write(`<h2 style="color: blue"> Cool Beans! </h2>`)
-    res.end(`<p style="color: white"> So I can put whatever here?</p>`);
+    res.setHeader("Content-Type", "text/html");
+    res.write("Hello World");
+    res.end();
+}).listen(3000, () => {
+    console.log(`Server running.`);
 });
 
-server.listen(port, hostname, () => {
-    console.log(`Server running at http://${hostname}:${port}/`);
-});
+// const http = require('http');
+// // const hostname = '127.0.0.1';
+// // const port = 3000;
+
+
+// const server = http.createServer((req, res) => {
+//     res.statusCode = 200;
+//     res.setHeader('Content-Type', 'text/html');
+//     res.write(`<body style="background-color: black"></body>`);
+//     res.write(`<h1 style="color: green">Hello World!</h1>`);
+//     res.write(`<p style="color: white">Looks like I can write whatever I want to the page, huh?!</p>`);
+//     res.write(`<h2 style="color: blue"> Cool Beans! </h2>`)
+//     res.end(`<p style="color: white"> So I can put whatever here?</p>`);
+// });
+
+// server.listen(port, hostname, () => {
+//     console.log(`Server running at http://${hostname}:${port}/`);
+// });
 
 // const adventure = {
 //     name: "Robin",
